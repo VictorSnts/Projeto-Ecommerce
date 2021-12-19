@@ -24,7 +24,7 @@ public class ProdutoService {
 		else throw new EntityNotFoundException("Nenhum produto cadastrado na base de dados!");
 	}
 	
-	public Produto getProduto(Integer id){
+	public Produto getProdutoById(Integer id){
 		Optional<Produto> produto = produtoRepo.findById(id);
 		
 		if(!produto.isEmpty()) return produto.get();

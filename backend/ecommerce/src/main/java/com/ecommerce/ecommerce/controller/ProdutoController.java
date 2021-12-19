@@ -25,8 +25,8 @@ public class ProdutoController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	public Produto getProduto(@PathVariable Integer id) {
-		Produto produto = produtoService.getProduto(id);
+	public Produto getProdutoById(@PathVariable Integer id) {
+		Produto produto = produtoService.getProdutoById(id);
 		return produto;
 	}
 
