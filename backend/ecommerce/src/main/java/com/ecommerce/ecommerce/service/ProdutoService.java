@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.ecommerce.model.Categoria;
+import com.ecommerce.ecommerce.model.Cor;
 import com.ecommerce.ecommerce.model.Produto;
 import com.ecommerce.ecommerce.repository.CategoriaRepository;
+import com.ecommerce.ecommerce.repository.CorRepository;
 import com.ecommerce.ecommerce.repository.ProdutoRepository;
 
 @Service
@@ -21,6 +23,9 @@ public class ProdutoService {
 	
 	@Autowired
 	CategoriaRepository categoriaRepo;
+	
+	@Autowired
+	CorRepository corRepo;
 	
 	public List<Produto> getProdutos(){
 		List<Produto> produtos = produtoRepo.findAll();
@@ -44,6 +49,17 @@ public class ProdutoService {
 			else throw new EntityNotFoundException("Nenhum produto cadastrado com essa categoria na base de dados!");
 		} else {
 			throw new IllegalArgumentException("Nenhuma categoria cadastrada com id [" + idCategoria + "]!");
+		}
+	}
+	
+	public List<Produto> getProdutoByCor(Integer idCor){
+		Optional<Cor> cor = corRepo.findById(idCor);
+		if(!cor.isEmpty()) {
+			List<Produto> produtos = produtoRepo.findByCor(cor.get());
+			if(!produtos.isEmpty()) return produtos;
+			else throw new EntityNotFoundException("Nenhum produto cadastrado com essa cor na base de dados!");
+		} else {
+			throw new IllegalArgumentException("Nenhuma cor cadastrada com id [" + idCor + "]!");
 		}
 	}
 	
