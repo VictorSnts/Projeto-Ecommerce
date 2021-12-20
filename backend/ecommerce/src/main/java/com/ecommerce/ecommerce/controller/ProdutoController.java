@@ -29,5 +29,11 @@ public class ProdutoController {
 		Produto produto = produtoService.getProdutoById(id);
 		return produto;
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/categoria/{idCategoria}")
+	public List<Produto> getProdutoByCategoria(@PathVariable Integer idCategoria) {
+		List<Produto> produtos = produtoService.getProdutoByCategoria(idCategoria);
+		return produtos;
+	}
 
 }
