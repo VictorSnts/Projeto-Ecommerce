@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.ecommerce.ecommerce.enums.EstadoCadastro;
 import com.ecommerce.ecommerce.model.Categoria;
 import com.ecommerce.ecommerce.model.Cor;
 import com.ecommerce.ecommerce.model.Marca;
@@ -62,21 +63,21 @@ public class EcommerceApplication implements CommandLineRunner{
 		Produto produto1 = new Produto(1, "iPhone Xs Max 64GB", 3000.99, 
 				"Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem "
 				+ "Ipsun Lorem Ipsun  Lorem Ipsun", 
-				4.0, 0.780, cor1, marca1, cat1);
+				4.0, 0.780, EstadoCadastro.ATIVO, cor1, marca1, cat1);
 		cor1.getProdutos().add(produto1);
 		marca1.getProdutos().add(produto1);
 
 		Produto produto2 = new Produto(2, "iPhone Xs 64GB", 2400.99, 
 				"Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem "
 				+ "Ipsun Lorem Ipsun  Lorem Ipsun", 
-				5.0, 0.623, cor2, marca1, cat1);
+				5.0, 0.623, EstadoCadastro.ATIVO, cor2, marca1, cat1);
 		cor2.getProdutos().add(produto2);
 		marca1.getProdutos().add(produto1);
 		
 		Produto produto3 = new Produto(3, "Galaxy Book 15'", 3400.99, 
 				"Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem "
 				+ "Ipsun Lorem Ipsun  Lorem Ipsun", 
-				4.0,1.123, cor3, marca2, cat2);
+				4.0,1.123, EstadoCadastro.ATIVO, cor3, marca2, cat2);
 		cor3.getProdutos().add(produto3);
 		marca2.getProdutos().add(produto3);
 

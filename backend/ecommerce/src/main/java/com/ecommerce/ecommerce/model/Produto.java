@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.ecommerce.ecommerce.enums.EstadoCadastro;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,6 +34,8 @@ public class Produto {
 	
 	private Double peso;
 	
+	private EstadoCadastro estadoCadastro;
+	
 	@ManyToOne
 	@JoinColumn(name = "corPredominante_id")
 	private Cor corPredominante;
@@ -43,5 +47,7 @@ public class Produto {
 	@ManyToOne
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
+	
+	
 
 }
