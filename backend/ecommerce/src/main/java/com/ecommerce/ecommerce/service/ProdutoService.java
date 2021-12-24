@@ -1,11 +1,12 @@
 package com.ecommerce.ecommerce.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ecommerce.ecommerce.model.Categoria;
@@ -27,8 +28,8 @@ public class ProdutoService {
 	@Autowired
 	CorRepository corRepo;
 	
-	public List<Produto> getProdutos(){
-		List<Produto> produtos = produtoRepo.findAll();
+	public Page<Produto> getProdutos(Pageable pageable, String busca){
+		Page<Produto> produtos = produtoRepo.findAll(pageable, busca);
 		
 		if(!produtos.isEmpty()) return produtos;
 		else throw new EntityNotFoundException("Nenhum produto cadastrado na base de dados!");
@@ -41,10 +42,12 @@ public class ProdutoService {
 		else throw new IllegalArgumentException("Nenhum produto cadastrado com o id [" + id + "]!");
 	}
 	
-	public List<Produto> getProdutoByCategoria(Integer idCategoria){
+	public Page<Produto> getProdutosByCategoria(Integer idCategoria, Pageable pageable){
 		Optional<Categoria> categoria = categoriaRepo.findById(idCategoria);
+		
 		if(!categoria.isEmpty()) {
-			List<Produto> produtos = produtoRepo.findByCategoria(categoria.get());
+			Page<Produto> produtos = produtoRepo.findByCategoria(categoria.get(), pageable);
+			
 			if(!produtos.isEmpty()) return produtos;
 			else throw new EntityNotFoundException("Nenhum produto cadastrado com essa categoria na base de dados!");
 		} else {
@@ -52,10 +55,11 @@ public class ProdutoService {
 		}
 	}
 	
-	public List<Produto> getProdutoByCor(Integer idCor){
+	public Page<Produto> getProdutosByCor(Integer idCor, Pageable pageable){
 		Optional<Cor> cor = corRepo.findById(idCor);
+		
 		if(!cor.isEmpty()) {
-			List<Produto> produtos = produtoRepo.findByCor(cor.get());
+			Page<Produto> produtos = produtoRepo.findByCor(cor.get(), pageable);
 			if(!produtos.isEmpty()) return produtos;
 			else throw new EntityNotFoundException("Nenhum produto cadastrado com essa cor na base de dados!");
 		} else {
