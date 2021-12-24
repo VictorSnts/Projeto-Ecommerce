@@ -36,6 +36,8 @@ public class Produto {
 	
 	private EstadoCadastro estadoCadastro;
 	
+	private Integer qtdEstoque;
+	
 	@ManyToOne
 	@JoinColumn(name = "corPredominante_id")
 	private Cor corPredominante;

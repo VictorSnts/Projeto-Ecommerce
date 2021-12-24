@@ -18,75 +18,85 @@ import com.ecommerce.ecommerce.service.ProdutoService;
 @RestController
 @RequestMapping(value = "/produtos")
 public class ProdutoController {
-	
+
 	@Autowired
 	ProdutoService produtoService;
-	
-	
+
 	// GET - Retorna lista paginada com todos os produtos, de acordo com a busca
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<Page<Produto>> getProdutos(@RequestParam(value = "busca", defaultValue = "") String busca,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "9") Integer size,
 			@RequestParam(value = "sort", defaultValue = "id") String sort,
-			@RequestParam(value = "order", defaultValue = "DESC") String order){
-		
+			@RequestParam(value = "order", defaultValue = "DESC") String order) {
+
 		Sort sortParm;
-		if(order.equals("DESC")) {
+		if (order.equals("DESC")) {
 			sortParm = Sort.by(sort).descending();
 		} else {
 			sortParm = Sort.by(sort).ascending();
 		}
-		
-		
+
 		Pageable pageable = PageRequest.of(page, size, sortParm);
 		Page<Produto> produtos = produtoService.getProdutos(pageable, busca);
 		return ResponseEntity.ok(produtos);
 	}
-	
+
+	// GET - Retorna um produto especifico, de acordo com o id informado
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
 	public Produto getProdutoById(@PathVariable Integer id) {
 		Produto produto = produtoService.getProdutoById(id);
 		return produto;
 	}
-	
-	// GET - Retorna lista paginada com todos os produtos, de acordo com a categoria selecionada
+
+	// GET - Retorna lista paginada com todos os produtos, de acordo com a categoria
+	// selecionada
 	@RequestMapping(method = RequestMethod.GET, value = "/categoria/{idCategoria}")
-	public ResponseEntity<Page<Produto>> getProdutosByCategoria(@PathVariable Integer idCategoria, 
+	public ResponseEntity<Page<Produto>> getProdutosByCategoria(@PathVariable Integer idCategoria,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "9") Integer size,
 			@RequestParam(value = "sort", defaultValue = "id") String sort,
 			@RequestParam(value = "order", defaultValue = "DESC") String order) {
-		
+
 		Sort sortParm;
-		if(order.equals("DESC")) {
+		if (order.equals("DESC")) {
 			sortParm = Sort.by(sort).descending();
 		} else {
 			sortParm = Sort.by(sort).ascending();
 		}
-		
+
 		Pageable pageable = PageRequest.of(page, size, sortParm);
 		Page<Produto> produtos = produtoService.getProdutosByCategoria(idCategoria, pageable);
 		return ResponseEntity.ok(produtos);
 	}
-	
-	// GET - Retorna lista paginada com todos os produtos, de acordo com a cor selecionada
+
+	// GET - Retorna lista paginada com todos os produtos, de acordo com a cor
+	// selecionada
 	@RequestMapping(method = RequestMethod.GET, value = "/cor/{idCor}")
-	public Page<Produto> getProdutosByCor(@PathVariable Integer idCor, 
+	public Page<Produto> getProdutosByCor(@PathVariable Integer idCor,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "9") Integer size,
 			@RequestParam(value = "sort", defaultValue = "id") String sort,
 			@RequestParam(value = "order", defaultValue = "DESC") String order) {
-		
+
 		Sort sortParm;
-		if(order.equals("DESC")) {
+		if (order.equals("DESC")) {
 			sortParm = Sort.by(sort).descending();
 		} else {
 			sortParm = Sort.by(sort).ascending();
 		}
-		
+
 		Pageable pageable = PageRequest.of(page, size, sortParm);
 		Page<Produto> produtos = produtoService.getProdutosByCor(idCor, pageable);
 		return produtos;
 	}
+	
+	/*
+	public Produto postProduto(ProdutoDTO produto) {
+		
+		return null;
+	}
+	*/
+
+
 }
