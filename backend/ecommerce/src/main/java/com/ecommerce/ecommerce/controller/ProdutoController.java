@@ -25,10 +25,15 @@ public class ProdutoController {
 	// GET - Retorna lista paginada com todos os produtos, de acordo com a busca
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<Page<Produto>> getProdutos(@RequestParam(value = "busca", defaultValue = "") String busca,
+			@RequestParam(value = "cor", defaultValue = "") Integer idCor,
+			@RequestParam(value = "marca", defaultValue = "") Integer idMarca,
+			@RequestParam(value = "categoria", defaultValue = "") Integer idCategoria,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "9") Integer size,
 			@RequestParam(value = "sort", defaultValue = "id") String sort,
 			@RequestParam(value = "order", defaultValue = "DESC") String order) {
+		
+		busca = busca.toUpperCase();
 
 		Sort sortParm;
 		if (order.equals("DESC")) {
@@ -38,7 +43,7 @@ public class ProdutoController {
 		}
 
 		Pageable pageable = PageRequest.of(page, size, sortParm);
-		Page<Produto> produtos = produtoService.getProdutos(pageable, busca);
+		Page<Produto> produtos = produtoService.getProdutos(pageable, busca, idCategoria, idMarca, idCor);
 		return ResponseEntity.ok(produtos);
 	}
 
